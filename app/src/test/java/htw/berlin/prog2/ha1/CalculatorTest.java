@@ -113,6 +113,44 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    //Teilaufgabe2: 2 rote Tests schreiben
+    @Test
+    //test gibt 5 aus dh Fehler muss bei binaryOperationKey liegen bzw im zwischenspeicher latestvalue
+    @DisplayName("should be able to add multiple numbers without having to press equals in between")
+    void testMultipleAdditions(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    //Test gibt 1 aus sollte aber 10 ausgeben dh Fehler bei ClearKey
+    @DisplayName("should only fully reset calc after 2 presses, after 1 press it should still have memorized previous inputs")
+    void testMultipleClearances() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+        calc.pressDigitKey(1);
+
+        String expected = "10";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 
 }
 
