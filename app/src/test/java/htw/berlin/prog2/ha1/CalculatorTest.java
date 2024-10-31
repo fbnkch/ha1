@@ -91,8 +91,7 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
 
-    //Teilaufgabe1
-
+    //Teilaufgabe1: 1 neuen grünen Test schreiben.
     @Test
     @DisplayName("should change sign of number")
     void testToggleSign(){
@@ -113,6 +112,7 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
 
 }
 
