@@ -90,5 +90,29 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    //Teilaufgabe1
+
+    @Test
+    @DisplayName("should change sign of number")
+    void testToggleSign(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey();
+
+        String expected = "-5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+        calc.pressNegativeKey();
+
+        expected = "5";
+        actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
