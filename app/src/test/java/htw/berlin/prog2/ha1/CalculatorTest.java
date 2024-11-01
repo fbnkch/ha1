@@ -116,6 +116,7 @@ class CalculatorTest {
     //Teilaufgabe2: 2 rote Tests schreiben
     @Test
     //test gibt 5 aus dh Fehler muss bei binaryOperationKey liegen bzw im zwischenspeicher latestvalue
+    //Nach Teilaufgabe 3 funktioniert das nun!
     @DisplayName("should be able to add multiple numbers without having to press equals in between")
     void testMultipleAdditions(){
         Calculator calc = new Calculator();
@@ -135,6 +136,7 @@ class CalculatorTest {
 
     @Test
     //Test gibt 1 aus sollte aber 10 ausgeben dh Fehler bei ClearKey
+    //Nach Teilaufgabe 3 funktioniert das nun!
     @DisplayName("should only fully reset calc after 2 presses, after 1 press it should still have memorized previous inputs")
     void testMultipleClearances() {
         Calculator calc = new Calculator();
@@ -146,6 +148,7 @@ class CalculatorTest {
         calc.pressDigitKey(3);
         calc.pressClearKey();
         calc.pressDigitKey(1);
+        calc.pressEqualsKey();
 
         String expected = "10";
         String actual = calc.readScreen();

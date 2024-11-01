@@ -44,10 +44,23 @@ public class Calculator {
      * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
      * im Ursprungszustand ist.
      */
+    /* Neue variable erstellt, extra außerhalb der Methode um zu verhindern, dass zustand sich speichert,
+     sollte die Variable in der Methode geschrieben sein, würde immer nur der Screen zurückgesetzt werden.
+     *Da in der Methode die variable im falle eines einfachen drückens auf true gesetzt wird, würde bei 2x drücken
+     die If-Schleife durchlaufen und die Variable wieder auf false gesetzt werden, sodass beim nächsten drücken
+     die If-Schleife direkt in den else-Abschnitt springt.
+     * */
+    private boolean isClearPressedOnce = false;
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if (isClearPressedOnce){
+            screen = "0";
+            latestOperation = "";
+            latestValue = 0.0;
+            isClearPressedOnce = false;
+        } else{
+            screen = "0";
+            isClearPressedOnce = true;
+        }
     }
 
     /**
@@ -57,11 +70,18 @@ public class Calculator {
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Sollte die Operationstaste erneut gedrückt werden, jedoch keine weitere Zahl eingegeben werden sondern sofort der "=" gedrückt
+     * werden, wird das Ergebnis je nach Operation entweder verdoppelt (+), quadriert (x), durch sich selbst geteilt (/) oder auf 0 zurückgesetzt (-).
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        //wird gecheckt ob bereits eine operation läuft, sollte dies der fall sein wird zwischengespeichert
+        if (!latestOperation.isEmpty()){
+           pressEqualsKey();
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+
     }
 
     /**
@@ -104,6 +124,13 @@ public class Calculator {
      * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
+
+    /*Methode überprüft am anfang ob bereits ein "-" vorhanden ist, sollte dies der Fall sein
+    wird dieses entfernt, ansonsten wird ein "-" hinzugefügt. ? und : sind quasi wie ein if-else statement
+    screen.substring(1) sorgt dafür, dass ein neuer String ausgegeben wird, der aber erst ab dem 2. Zeichen startet.
+    sollte am Anfang kein "-" stehen, trifft ":" ein was dafür sorgt das ein "-" am anfang des Screens hinzugefügt wird.
+     */
+
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
